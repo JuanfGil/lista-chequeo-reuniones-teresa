@@ -2,8 +2,9 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <title>Lista de Chequeo - Reuniones Dra. Teresa Enríquez Rosero</title>
+  <title>Ficha de Reuniones para Delegados</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <style>
     * {
       box-sizing: border-box;
@@ -13,7 +14,7 @@
     body {
       margin: 0;
       padding: 0;
-      background-color: #ffffff; /* Fondo blanco */
+      background-color: #ffffff;
     }
 
     .app-container {
@@ -35,7 +36,7 @@
       width: 150px;
       height: 150px;
       border-radius: 10px;
-      background: #f8bbd0; /* fucsia muy suave */
+      background: #f8bbd0;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -49,32 +50,20 @@
     .header-logo img {
       width: 100%;
       height: 100%;
-      object-fit: cover; /* mantiene proporción y rellena el cuadro */
+      object-fit: cover;
     }
 
     .header-title {
       flex: 1;
       padding: 10px 16px;
       border-radius: 8px;
-      background: linear-gradient(to right, #e91e63, #ff80ab); /* fucsia → rosa */
+      background: linear-gradient(to right, #e91e63, #ff80ab);
       color: #fff;
       font-weight: bold;
       text-transform: uppercase;
-      font-size: 14px;
+      font-size: 16px;
       text-align: center;
       line-height: 1.3;
-    }
-
-    .header-format {
-      padding: 10px 16px;
-      border-radius: 8px;
-      background-color: #ad1457; /* fucsia oscuro */
-      color: #fff;
-      font-weight: bold;
-      text-align: center;
-      min-width: 110px;
-      text-transform: uppercase;
-      font-size: 12px;
     }
 
     @media (max-width: 700px) {
@@ -89,17 +78,13 @@
         margin-bottom: 8px;
       }
 
-      .header-title,
-      .header-format {
-        width: 100%;
-      }
-
       .header-title {
-        font-size: 13px;
+        width: 100%;
+        font-size: 15px;
       }
     }
 
-    /* Layout principal */
+    /* Layout */
     .content {
       display: grid;
       grid-template-columns: 1fr 1.1fr;
@@ -129,11 +114,11 @@
       text-transform: uppercase;
       padding: 8px 10px;
       border-radius: 6px;
-      background-color: #fce4ec; /* fucsia claro */
+      background-color: #fce4ec;
       color: #880e4f;
     }
 
-    /* Formulario: todo en columna para móvil */
+    /* Formulario: vertical */
     .form-grid {
       display: grid;
       grid-template-columns: 1fr;
@@ -183,12 +168,12 @@
     }
 
     .btn-primary {
-      background-color: #e91e63; /* fucsia */
+      background-color: #e91e63;
       color: #fff;
     }
 
     .btn-secondary {
-      background-color: #f06292; /* fucsia medio */
+      background-color: #f06292;
       color: #fff;
     }
 
@@ -204,18 +189,16 @@
       border-radius: 16px;
     }
 
-    .btn:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-    }
-
     @media (max-width: 700px) {
       .btn-row {
         flex-direction: column;
+        align-items: center;
       }
+
       .btn {
-        width: 100%;
-        justify-content: center;
+        width: auto;
+        padding: 10px 16px;
+        min-width: 150px;
       }
     }
 
@@ -227,7 +210,7 @@
     }
 
     thead {
-      background-color: #ad1457; /* fucsia oscuro */
+      background-color: #ad1457;
       color: #fff;
     }
 
@@ -247,6 +230,7 @@
       text-align: center;
     }
 
+    /* Filtro y admin */
     .top-controls {
       display: flex;
       justify-content: space-between;
@@ -285,13 +269,7 @@
       color: #880e4f;
     }
 
-    @media (max-width: 700px) {
-      .admin-controls {
-        justify-content: flex-start;
-      }
-    }
-
-    /* Modal administrador */
+    /* Modal admin */
     .modal-backdrop {
       position: fixed;
       inset: 0;
@@ -318,11 +296,6 @@
       color: #880e4f;
     }
 
-    .modal p {
-      margin: 0 0 10px;
-      font-size: 12px;
-    }
-
     .modal input[type="password"] {
       width: 100%;
       padding: 8px 10px;
@@ -341,22 +314,20 @@
 </head>
 <body>
   <div class="app-container">
+
     <header class="header">
       <div class="header-logo">
-        <!-- Foto Dra. Teresa -->
-        <img src="teresaaa.jpg" alt="Dra. Teresa Enríquez Rosero"
+        <img src="teresaaa.jpg" alt="Dra. Teresa"
              onerror="this.style.display='none'; this.parentElement.innerHTML='Foto<br>Dra. Teresa';">
       </div>
+
       <div class="header-title">
-        Lista de Chequeo - Agendamiento Reuniones<br>
-        Dra. Teresa Enríquez Rosero
-      </div>
-      <div class="header-format">
-        Formato 1
+        FICHA DE REUNIONES PARA DELEGADOS
       </div>
     </header>
 
     <div class="content">
+
       <!-- FORMULARIO -->
       <section class="card">
         <h2 class="card-title">Datos de la reunión</h2>
@@ -413,7 +384,7 @@
           </div>
 
           <div class="form-group">
-            <label for="notas">Notas pendientes por parte de la Dra. Teresa Enríquez / Delegado</label>
+            <label for="notas">Notas pendientes por parte de la Dra. Teresa / Delegado</label>
             <textarea id="notas"></textarea>
           </div>
         </div>
@@ -426,8 +397,8 @@
 
       <!-- TABLA -->
       <section class="card">
-        <h2 class="card-title" style="background-color:#e91e63; color:#fff;">
-          Listado de reuniones agendadas
+        <h2 class="card-title" style="background:#e91e63; color:white;">
+          Reuniones registradas
         </h2>
 
         <div class="top-controls">
@@ -455,26 +426,25 @@
               <th>Líder u organización</th>
               <th>Celular</th>
               <th>N° asistentes</th>
-              <th>Tipo de población</th>
+              <th>Tipo población</th>
               <th>Observaciones</th>
-              <th>Notas pendientes</th>
+              <th>Notas</th>
               <th>Acciones</th>
             </tr>
           </thead>
-          <tbody id="tablaReuniones">
-            <!-- Filas generadas por JavaScript -->
-          </tbody>
+          <tbody id="tablaReuniones"></tbody>
         </table>
       </section>
     </div>
   </div>
 
-  <!-- MODAL ADMIN -->
+  <!-- MODAL DE ADMIN -->
   <div class="modal-backdrop" id="modalAdmin">
     <div class="modal">
       <h3 class="modal-title">Modo administrador</h3>
       <p>Ingresa la contraseña para ver todas las reuniones y habilitar edición/eliminación.</p>
       <input type="password" id="inputAdminPwd" placeholder="Contraseña" />
+
       <div class="modal-btns">
         <button class="btn btn-secondary btn-sm" id="btnCancelarAdmin">Cancelar</button>
         <button class="btn btn-primary btn-sm" id="btnConfirmarAdmin">Aceptar</button>
@@ -482,48 +452,47 @@
     </div>
   </div>
 
+  <!-- SCRIPT -->
   <script>
-    // ----- CONFIGURACIÓN FRONTEND -----
     const DEVICE_KEY = 'idDispositivoTeresa';
     const ADMIN_PASSWORD = 'teresa2025';
 
-    // 👇 CAMBIA esto por la URL de tu servicio en Render
-    // Ejemplo: 'https://lista-chequeo-api-teresa.onrender.com'
-    const API_BASE_URL = 'https://lista-chequeo-reuniones-teresa.onrender.com';
+    // 👇 CAMBIA ESTO POR TU URL REAL DEL API EN RENDER
+    const API_BASE_URL = 'https://TU-API.onrender.com';
 
     let reuniones = [];
-    let indiceEdicion = null; // null = creando, número = editando
+    let indiceEdicion = null;
     let modoAdmin = false;
     let idDispositivo = null;
 
-    // ----- Referencias a elementos -----
-    const inputDelegados = document.getElementById('delegados');
-    const inputFecha = document.getElementById('fecha');
-    const inputHora = document.getElementById('hora');
-    const inputLugar = document.getElementById('lugar');
-    const inputMunicipio = document.getElementById('municipio');
-    const inputLider = document.getElementById('lider');
-    const inputCelular = document.getElementById('celular');
-    const inputAsistentes = document.getElementById('asistentes');
-    const inputTipoPoblacion = document.getElementById('tipoPoblacion');
-    const inputObservaciones = document.getElementById('observaciones');
-    const inputNotas = document.getElementById('notas');
+    const $ = (id) => document.getElementById(id);
 
-    const btnGuardar = document.getElementById('btnGuardar');
-    const btnLimpiar = document.getElementById('btnLimpiar');
-    const tbody = document.getElementById('tablaReuniones');
+    const inputDelegados = $('delegados');
+    const inputFecha = $('fecha');
+    const inputHora = $('hora');
+    const inputLugar = $('lugar');
+    const inputMunicipio = $('municipio');
+    const inputLider = $('lider');
+    const inputCelular = $('celular');
+    const inputAsistentes = $('asistentes');
+    const inputTipoPoblacion = $('tipoPoblacion');
+    const inputObservaciones = $('observaciones');
+    const inputNotas = $('notas');
 
-    const filtroDelegado = document.getElementById('filtroDelegado');
-    const btnAdmin = document.getElementById('btnAdmin');
-    const btnExcel = document.getElementById('btnExcel');
-    const estadoVista = document.getElementById('estadoVista');
+    const btnGuardar = $('btnGuardar');
+    const btnLimpiar = $('btnLimpiar');
+    const tbody = $('tablaReuniones');
 
-    const modalAdmin = document.getElementById('modalAdmin');
-    const inputAdminPwd = document.getElementById('inputAdminPwd');
-    const btnCancelarAdmin = document.getElementById('btnCancelarAdmin');
-    const btnConfirmarAdmin = document.getElementById('btnConfirmarAdmin');
+    const filtroDelegado = $('filtroDelegado');
+    const btnAdmin = $('btnAdmin');
+    const btnExcel = $('btnExcel');
+    const estadoVista = $('estadoVista');
 
-    // ----- Funciones generales -----
+    const modalAdmin = $('modalAdmin');
+    const inputAdminPwd = $('inputAdminPwd');
+    const btnCancelarAdmin = $('btnCancelarAdmin');
+    const btnConfirmarAdmin = $('btnConfirmarAdmin');
+
     function generarIdDispositivo() {
       return 'disp-' + Date.now() + '-' + Math.floor(Math.random() * 100000);
     }
@@ -560,7 +529,7 @@
       if (!datos.hora) return 'El campo "Hora" es obligatorio.';
       if (!datos.lugar) return 'El campo "Lugar" es obligatorio.';
       if (!datos.municipio) return 'El campo "Municipio" es obligatorio.';
-      if (!datos.lider) return 'El campo "Líder u organización que convoca" es obligatorio.';
+      if (!datos.lider) return 'El campo "Líder" es obligatorio.';
       return null;
     }
 
@@ -581,46 +550,28 @@
     }
 
     function actualizarEstadoVista() {
-      if (modoAdmin) {
-        estadoVista.textContent = 'Mostrando todas las reuniones (modo administrador).';
-      } else {
-        estadoVista.textContent = 'Mostrando solo las reuniones creadas en este dispositivo.';
-      }
+      estadoVista.textContent = modoAdmin
+        ? 'Mostrando todas las reuniones.'
+        : 'Mostrando reuniones de este dispositivo.';
     }
 
     function obtenerRegistrosFiltrados() {
-      const textoFiltro = filtroDelegado.value.toLowerCase().trim();
-      let base = [...reuniones];
-
-      if (textoFiltro) {
-        base = base.filter(r =>
-          (r.delegados || '').toLowerCase().includes(textoFiltro)
-        );
-      }
-
-      return base;
+      const filtro = filtroDelegado.value.toLowerCase().trim();
+      return reuniones.filter(r =>
+        (r.delegados || '').toLowerCase().includes(filtro)
+      );
     }
 
     function pintarTabla() {
-      const registros = obtenerRegistrosFiltrados();
       tbody.innerHTML = '';
+      const registros = obtenerRegistrosFiltrados();
 
       registros.forEach((r, index) => {
         const tr = document.createElement('tr');
 
-        let accionesHTML = '';
-        if (modoAdmin) {
-          accionesHTML = `
-            <button class="btn btn-secondary btn-sm" data-accion="editar" data-index="${index}">Editar</button>
-            <button class="btn btn-danger btn-sm" data-accion="eliminar" data-index="${index}">Eliminar</button>
-          `;
-        } else {
-          accionesHTML = '<span style="font-size:11px; color:#777;">Solo administrador</span>';
-        }
-
         tr.innerHTML = `
           <td>${index + 1}</td>
-          <td>${r.delegados || ''}</td>
+          <td>${r.delegados}</td>
           <td>${r.fecha || ''}</td>
           <td>${r.hora || ''}</td>
           <td>${r.lugar || ''}</td>
@@ -632,224 +583,131 @@
           <td>${r.observaciones || ''}</td>
           <td>${r.notas || ''}</td>
           <td class="actions-cell">
-            ${accionesHTML}
+            ${
+              modoAdmin
+                ? `
+                  <button class="btn btn-secondary btn-sm" data-accion="editar" data-index="${index}">Editar</button>
+                  <button class="btn btn-danger btn-sm" data-accion="eliminar" data-index="${index}">Eliminar</button>
+                `
+                : `<span style="font-size:11px; color:#777;">Solo admin</span>`
+            }
           </td>
         `;
-
         tbody.appendChild(tr);
       });
     }
 
-    function escapeCSV(value) {
-      if (value === null || value === undefined) return '';
-      const str = String(value).replace(/"/g, '""');
-      if (/[;"\n\r]/.test(str)) {
-        return `"${str}"`;
-      }
-      return str;
-    }
-
-    function descargarExcel() {
-      const registros = obtenerRegistrosFiltrados();
-      if (!registros.length) {
-        alert('No hay registros para exportar.');
-        return;
-      }
-
-      const encabezados = [
-        'Delegados',
-        'Fecha',
-        'Hora',
-        'Lugar',
-        'Municipio',
-        'Líder u organización',
-        'Celular',
-        'Número de asistentes',
-        'Tipo de población',
-        'Observaciones',
-        'Notas pendientes'
-      ];
-
-      const filas = registros.map(r => [
-        r.delegados || '',
-        r.fecha || '',
-        r.hora || '',
-        r.lugar || '',
-        r.municipio || '',
-        r.lider || '',
-        r.celular || '',
-        r.asistentes ?? '',
-        r.tipo_poblacion || r.tipoPoblacion || '',
-        r.observaciones || '',
-        r.notas || ''
-      ]);
-
-      const lineas = [];
-      lineas.push(encabezados.map(escapeCSV).join(';'));
-      filas.forEach(fila => {
-        lineas.push(fila.map(escapeCSV).join(';'));
-      });
-
-      const csvContent = lineas.join('\n');
-      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-      const url = URL.createObjectURL(blob);
-
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'reuniones_dra_teresa.csv';
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
-    }
-
-    // ----- Llamadas a la API -----
     async function cargarReunionesDesdeApi() {
       try {
         let url = `${API_BASE_URL}/api/reuniones`;
-        if (modoAdmin) {
-          url += `?modo=admin&password=${encodeURIComponent(ADMIN_PASSWORD)}`;
-        } else {
-          url += `?dispositivoId=${encodeURIComponent(idDispositivo)}`;
-        }
+        url += modoAdmin
+          ? `?modo=admin&password=${ADMIN_PASSWORD}`
+          : `?dispositivoId=${idDispositivo}`;
 
         const res = await fetch(url);
-        if (!res.ok) {
-          throw new Error('Error al consultar reuniones');
-        }
-
         reuniones = await res.json();
         pintarTabla();
       } catch (err) {
-        console.error(err);
-        alert('No se pudieron cargar las reuniones desde el servidor.');
+        alert('No se pudo cargar la información.');
       }
     }
 
     async function crearReunion(datos) {
-      const res = await fetch(`${API_BASE_URL}/api/reuniones`, {
+      await fetch(`${API_BASE_URL}/api/reuniones`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(datos)
       });
-      if (!res.ok) throw new Error('Error al crear reunión');
-      return res.json();
     }
 
     async function actualizarReunion(id, datos) {
-      const res = await fetch(`${API_BASE_URL}/api/reuniones/${id}`, {
+      await fetch(`${API_BASE_URL}/api/reuniones/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(datos)
       });
-      if (!res.ok) throw new Error('Error al actualizar reunión');
-      return res.json();
     }
 
     async function eliminarReunion(id) {
-      const res = await fetch(`${API_BASE_URL}/api/reuniones/${id}`, {
+      await fetch(`${API_BASE_URL}/api/reuniones/${id}`, {
         method: 'DELETE'
       });
-      if (!res.ok) throw new Error('Error al eliminar reunión');
-      return res.json();
     }
 
-    // ----- Modal admin -----
-    function abrirModalAdmin() {
-      inputAdminPwd.value = '';
+    // ADMIN
+    function abrirModal() {
       modalAdmin.style.display = 'flex';
-      setTimeout(() => inputAdminPwd.focus(), 50);
+      inputAdminPwd.value = '';
+      setTimeout(() => inputAdminPwd.focus(), 100);
     }
 
-    function cerrarModalAdmin() {
+    function cerrarModal() {
       modalAdmin.style.display = 'none';
     }
 
     async function intentarEntrarAdmin() {
-      const pwd = inputAdminPwd.value;
-      if (pwd === ADMIN_PASSWORD) {
-        modoAdmin = true;
-        cerrarModalAdmin();
-        actualizarEstadoVista();
-        await cargarReunionesDesdeApi();
-        btnAdmin.textContent = 'Salir de modo administrador';
-        btnExcel.disabled = false;
-      } else {
+      if (inputAdminPwd.value !== ADMIN_PASSWORD) {
         alert('Contraseña incorrecta.');
-        inputAdminPwd.focus();
+        return;
       }
+      modoAdmin = true;
+      cerrarModal();
+      btnAdmin.textContent = 'Salir de modo administrador';
+      btnExcel.disabled = false;
+      await cargarReunionesDesdeApi();
+      actualizarEstadoVista();
     }
 
-    // ----- Eventos -----
+    // EVENTOS
     btnGuardar.addEventListener('click', async () => {
       const datos = obtenerDatosFormulario();
       const error = validarDatos(datos);
+      if (error) return alert(error);
 
-      if (error) {
-        alert(error);
-        return;
+      if (indiceEdicion === null) {
+        await crearReunion(datos);
+      } else {
+        const registro = reuniones[indiceEdicion];
+        await actualizarReunion(registro.id, datos);
       }
 
-      try {
-        if (indiceEdicion === null) {
-          await crearReunion(datos);
-        } else {
-          const registro = reuniones[indiceEdicion];
-          await actualizarReunion(registro.id, datos);
-        }
-
-        await cargarReunionesDesdeApi();
-        limpiarFormulario();
-      } catch (err) {
-        console.error(err);
-        alert('Ocurrió un error guardando la reunión.');
-      }
-    });
-
-    btnLimpiar.addEventListener('click', () => {
+      await cargarReunionesDesdeApi();
       limpiarFormulario();
     });
 
-    filtroDelegado.addEventListener('input', () => {
-      pintarTabla();
-    });
+    btnLimpiar.addEventListener('click', limpiarFormulario);
 
-    btnAdmin.addEventListener('click', async () => {
+    filtroDelegado.addEventListener('input', pintarTabla);
+
+    btnAdmin.addEventListener('click', () => {
       if (modoAdmin) {
         modoAdmin = false;
         btnAdmin.textContent = 'Activar modo administrador';
         btnExcel.disabled = true;
+        cargarReunionesDesdeApi();
         actualizarEstadoVista();
-        await cargarReunionesDesdeApi();
-      } else {
-        abrirModalAdmin();
-      }
+      } else abrirModal();
     });
 
-    btnExcel.addEventListener('click', () => {
-      if (!modoAdmin) {
-        alert('Solo el administrador puede descargar el Excel.');
-        return;
-      }
-      descargarExcel();
+    btnCancelarAdmin.addEventListener('click', cerrarModal);
+    btnConfirmarAdmin.addEventListener('click', intentarEntrarAdmin);
+
+    modalAdmin.addEventListener('click', (e) => {
+      if (e.target === modalAdmin) cerrarModal();
     });
 
-    tbody.addEventListener('click', async (event) => {
-      const btn = event.target;
-      const accion = btn.getAttribute('data-accion');
-      const index = btn.getAttribute('data-index');
+    tbody.addEventListener('click', async (e) => {
+      const btn = e.target;
+      const accion = btn.dataset.accion;
+      const index = btn.dataset.index;
 
-      if (!accion || index === null) return;
-      const idx = parseInt(index, 10);
+      if (!accion) return;
+      if (!modoAdmin) return alert('Solo el administrador puede editar o eliminar.');
 
-      if (!modoAdmin) {
-        alert('Solo el administrador puede editar o eliminar registros.');
-        return;
-      }
+      const r = reuniones[index];
 
       if (accion === 'editar') {
-        const r = reuniones[idx];
-        inputDelegados.value = r.delegados || '';
+        inputDelegados.value = r.delegados;
         inputFecha.value = r.fecha || '';
         inputHora.value = r.hora || '';
         inputLugar.value = r.lugar || '';
@@ -857,57 +715,27 @@
         inputLider.value = r.lider || '';
         inputCelular.value = r.celular || '';
         inputAsistentes.value = r.asistentes ?? '';
-        inputTipoPoblacion.value = r.tipo_poblacion || r.tipoPoblacion || '';
+        inputTipoPoblacion.value = r.tipo_poblacion || '';
         inputObservaciones.value = r.observaciones || '';
         inputNotas.value = r.notas || '';
-
-        indiceEdicion = idx;
+        indiceEdicion = index;
         btnGuardar.textContent = 'Actualizar reunión';
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }
 
       if (accion === 'eliminar') {
-        const confirmar = confirm('¿Deseas eliminar esta reunión?');
-        if (!confirmar) return;
-
-        try {
-          const r = reuniones[idx];
-          await eliminarReunion(r.id);
-          await cargarReunionesDesdeApi();
-        } catch (err) {
-          console.error(err);
-          alert('No se pudo eliminar la reunión.');
-        }
+        if (!confirm('¿Eliminar esta reunión?')) return;
+        await eliminarReunion(r.id);
+        await cargarReunionesDesdeApi();
       }
     });
 
-    // Modal eventos
-    btnCancelarAdmin.addEventListener('click', () => {
-      cerrarModalAdmin();
-    });
-
-    btnConfirmarAdmin.addEventListener('click', () => {
-      intentarEntrarAdmin();
-    });
-
-    inputAdminPwd.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') {
-        intentarEntrarAdmin();
-      }
-    });
-
-    modalAdmin.addEventListener('click', (e) => {
-      if (e.target === modalAdmin) {
-        cerrarModalAdmin();
-      }
-    });
-
-    // ----- Inicio -----
+    // INICIO
     (async function init() {
       idDispositivo = obtenerIdDispositivo();
       actualizarEstadoVista();
-      await cargarReunionesDesdeApi();
       btnExcel.disabled = true;
+      await cargarReunionesDesdeApi();
     })();
   </script>
 </body>

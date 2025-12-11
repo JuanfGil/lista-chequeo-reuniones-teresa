@@ -2,10 +2,720 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <title>Lista de Chequeo - Reuniones Dra. Teresa</title>
+  <title>Lista de Chequeo - Reuniones Dra. Teresa Enríquez Rosero</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: Calibri, Arial, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #ffffff; /* Fondo blanco */
+    }
+
+    .app-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    /* Encabezado */
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .header-logo {
+      width: 110px;
+      height: 70px;
+      border-radius: 4px;
+      background: #ddd;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      text-align: center;
+      padding: 4px;
+    }
+
+    .header-title {
+      flex: 1;
+      padding: 10px 16px;
+      border-radius: 4px;
+      background: linear-gradient(to right, #ff9800, #ffeb3b); /* naranja → amarillo */
+      color: #000;
+      font-weight: bold;
+      text-transform: uppercase;
+      font-size: 15px;
+      text-align: center;
+      line-height: 1.3;
+    }
+
+    .header-format {
+      padding: 10px 16px;
+      border-radius: 4px;
+      background-color: #4caf50; /* verde */
+      color: #fff;
+      font-weight: bold;
+      text-align: center;
+      min-width: 120px;
+      text-transform: uppercase;
+    }
+
+    /* Layout principal */
+    .content {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 900px) {
+      .content {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Tarjetas */
+    .card {
+      border-radius: 6px;
+      border: 1px solid #ddd;
+      padding: 16px;
+      background-color: #ffffff;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+    .card-title {
+      margin-top: 0;
+      margin-bottom: 12px;
+      font-weight: bold;
+      font-size: 14px;
+      text-transform: uppercase;
+      padding: 8px 10px;
+      border-radius: 4px;
+      background-color: #ffeb3b; /* amarillo */
+    }
+
+    /* Formulario */
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px 16px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      font-size: 13px;
+    }
+
+    .form-group label {
+      margin-bottom: 2px;
+      font-weight: 600;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      padding: 6px 8px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      font-size: 13px;
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 60px;
+    }
+
+    .form-group-full {
+      grid-column: 1 / 3;
+    }
+
+    /* Botones */
+    .btn-row {
+      margin-top: 14px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      border: none;
+      border-radius: 4px;
+      padding: 8px 14px;
+      font-size: 13px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .btn-primary {
+      background-color: #ff9800; /* naranja */
+      color: #fff;
+    }
+
+    .btn-secondary {
+      background-color: #4caf50; /* verde */
+      color: #fff;
+    }
+
+    .btn-danger {
+      background-color: #f44336;
+      color: #fff;
+    }
+
+    .btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    /* Tabla */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+    }
+
+    thead {
+      background-color: #4caf50; /* verde */
+      color: #fff;
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 6px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    tbody tr:nth-child(even) {
+      background-color: #fafafa;
+    }
+
+    .actions-cell {
+      white-space: nowrap;
+      text-align: center;
+    }
+
+    .top-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+    }
+
+    .filter-group {
+      display: flex;
+      flex-direction: column;
+      font-size: 12px;
+    }
+
+    .filter-group input {
+      padding: 6px 8px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      font-size: 12px;
+      min-width: 220px;
+    }
+
+    .admin-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      font-size: 11px;
+    }
+
+    #estadoVista {
+      font-style: italic;
+    }
+  </style>
 </head>
 <body>
-  <h1>Lista de Chequeo - Reuniones Dra. Teresa Enríquez Rosero</h1>
-  <p>Si estás viendo esta página en Render, el despliegue funcionó correctamente.</p>
+  <div class="app-container">
+    <header class="header">
+      <div class="header-logo">
+        Logo / Foto<br>Dra. Teresa
+      </div>
+      <div class="header-title">
+        Lista de Chequeo - Agendamiento Reuniones<br>
+        Dra. Teresa Enríquez Rosero
+      </div>
+      <div class="header-format">
+        Formato 1
+      </div>
+    </header>
+
+    <div class="content">
+      <!-- FORMULARIO -->
+      <section class="card">
+        <h2 class="card-title">Datos de la reunión</h2>
+
+        <div class="form-grid">
+          <div class="form-group form-group-full">
+            <label for="delegados">Delegados</label>
+            <input type="text" id="delegados" />
+          </div>
+
+          <div class="form-group">
+            <label for="fecha">Fecha</label>
+            <input type="date" id="fecha" />
+          </div>
+
+          <div class="form-group">
+            <label for="hora">Hora</label>
+            <input type="time" id="hora" />
+          </div>
+
+          <div class="form-group form-group-full">
+            <label for="lugar">Lugar</label>
+            <input type="text" id="lugar" />
+          </div>
+
+          <div class="form-group">
+            <label for="municipio">Municipio</label>
+            <input type="text" id="municipio" />
+          </div>
+
+          <div class="form-group">
+            <label for="lider">Líder u organización que convoca</label>
+            <input type="text" id="lider" />
+          </div>
+
+          <div class="form-group">
+            <label for="celular">Celular</label>
+            <input type="tel" id="celular" />
+          </div>
+
+          <div class="form-group">
+            <label for="asistentes">Número de asistentes</label>
+            <input type="number" id="asistentes" min="0" />
+          </div>
+
+          <div class="form-group form-group-full">
+            <label for="tipoPoblacion">Tipo de población</label>
+            <input type="text" id="tipoPoblacion" />
+          </div>
+
+          <div class="form-group form-group-full">
+            <label for="observaciones">Observaciones</label>
+            <textarea id="observaciones"></textarea>
+          </div>
+
+          <div class="form-group form-group-full">
+            <label for="notas">Notas pendientes por parte de la Dra. Teresa Enríquez / Delegado</label>
+            <textarea id="notas"></textarea>
+          </div>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn btn-primary" id="btnGuardar">Guardar reunión</button>
+          <button class="btn btn-secondary" id="btnLimpiar">Limpiar formulario</button>
+        </div>
+      </section>
+
+      <!-- TABLA -->
+      <section class="card">
+        <h2 class="card-title" style="background-color:#ff9800; color:#fff;">
+          Listado de reuniones agendadas
+        </h2>
+
+        <div class="top-controls">
+          <div class="filter-group">
+            <label for="filtroDelegado">Filtrar por delegado</label>
+            <input type="text" id="filtroDelegado" placeholder="Escribe el nombre del delegado" />
+          </div>
+
+          <div class="admin-controls">
+            <button class="btn btn-secondary" id="btnAdmin">Activar modo administrador</button>
+            <button class="btn btn-primary" id="btnExcel" disabled>Descargar Excel</button>
+            <span id="estadoVista"></span>
+          </div>
+        </div>
+
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Delegados</th>
+              <th>Fecha</th>
+              <th>Hora</th>
+              <th>Lugar</th>
+              <th>Municipio</th>
+              <th>Líder u organización</th>
+              <th>Celular</th>
+              <th>N° asistentes</th>
+              <th>Tipo de población</th>
+              <th>Observaciones</th>
+              <th>Notas pendientes</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="tablaReuniones">
+            <!-- Filas generadas por JavaScript -->
+          </tbody>
+        </table>
+      </section>
+    </div>
+  </div>
+
+  <script>
+    // ----- CONFIGURACIÓN -----
+    const STORAGE_KEY = 'reunionesTeresa';
+    const DEVICE_KEY = 'idDispositivoTeresa';
+    const ADMIN_PASSWORD = 'Teresa2025'; // puedes cambiarla si quieres
+
+    let reuniones = [];
+    let indiceEdicion = null; // null = creando, número = editando
+    let modoAdmin = false;
+    let idDispositivo = null;
+
+    // ----- Referencias a elementos -----
+    const inputDelegados = document.getElementById('delegados');
+    const inputFecha = document.getElementById('fecha');
+    const inputHora = document.getElementById('hora');
+    const inputLugar = document.getElementById('lugar');
+    const inputMunicipio = document.getElementById('municipio');
+    const inputLider = document.getElementById('lider');
+    const inputCelular = document.getElementById('celular');
+    const inputAsistentes = document.getElementById('asistentes');
+    const inputTipoPoblacion = document.getElementById('tipoPoblacion');
+    const inputObservaciones = document.getElementById('observaciones');
+    const inputNotas = document.getElementById('notas');
+
+    const btnGuardar = document.getElementById('btnGuardar');
+    const btnLimpiar = document.getElementById('btnLimpiar');
+    const tbody = document.getElementById('tablaReuniones');
+
+    const filtroDelegado = document.getElementById('filtroDelegado');
+    const btnAdmin = document.getElementById('btnAdmin');
+    const btnExcel = document.getElementById('btnExcel');
+    const estadoVista = document.getElementById('estadoVista');
+
+    // ----- Funciones generales -----
+    function generarIdDispositivo() {
+      return 'disp-' + Date.now() + '-' + Math.floor(Math.random() * 100000);
+    }
+
+    function obtenerIdDispositivo() {
+      let id = localStorage.getItem(DEVICE_KEY);
+      if (!id) {
+        id = generarIdDispositivo();
+        localStorage.setItem(DEVICE_KEY, id);
+      }
+      return id;
+    }
+
+    function cargarDesdeLocalStorage() {
+      const data = localStorage.getItem(STORAGE_KEY);
+      if (data) {
+        try {
+          reuniones = JSON.parse(data);
+        } catch (e) {
+          reuniones = [];
+        }
+      }
+      pintarTabla();
+    }
+
+    function guardarEnLocalStorage() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(reuniones));
+    }
+
+    function limpiarFormulario() {
+      inputDelegados.value = '';
+      inputFecha.value = '';
+      inputHora.value = '';
+      inputLugar.value = '';
+      inputMunicipio.value = '';
+      inputLider.value = '';
+      inputCelular.value = '';
+      inputAsistentes.value = '';
+      inputTipoPoblacion.value = '';
+      inputObservaciones.value = '';
+      inputNotas.value = '';
+      indiceEdicion = null;
+      btnGuardar.textContent = 'Guardar reunión';
+    }
+
+    function obtenerDatosFormulario() {
+      return {
+        delegados: inputDelegados.value.trim(),
+        fecha: inputFecha.value,
+        hora: inputHora.value,
+        lugar: inputLugar.value.trim(),
+        municipio: inputMunicipio.value.trim(),
+        lider: inputLider.value.trim(),
+        celular: inputCelular.value.trim(),
+        asistentes: inputAsistentes.value ? parseInt(inputAsistentes.value, 10) : '',
+        tipoPoblacion: inputTipoPoblacion.value.trim(),
+        observaciones: inputObservaciones.value.trim(),
+        notas: inputNotas.value.trim(),
+        dispositivoId: idDispositivo // siempre guarda quién lo creó
+      };
+    }
+
+    function validarDatos(datos) {
+      if (!datos.delegados) return 'El campo "Delegados" es obligatorio.';
+      if (!datos.fecha) return 'El campo "Fecha" es obligatorio.';
+      if (!datos.hora) return 'El campo "Hora" es obligatorio.';
+      if (!datos.lugar) return 'El campo "Lugar" es obligatorio.';
+      if (!datos.municipio) return 'El campo "Municipio" es obligatorio.';
+      if (!datos.lider) return 'El campo "Líder u organización que convoca" es obligatorio.';
+      return null;
+    }
+
+    function obtenerRegistrosVisibles() {
+      const textoFiltro = filtroDelegado.value.toLowerCase().trim();
+
+      let base = reuniones.filter(r => {
+        if (modoAdmin) return true;
+        // NO admin: solo registros de este dispositivo
+        return r.dispositivoId === idDispositivo;
+      });
+
+      if (textoFiltro) {
+        base = base.filter(r =>
+          (r.delegados || '').toLowerCase().includes(textoFiltro)
+        );
+      }
+
+      return base;
+    }
+
+    function actualizarEstadoVista() {
+      if (modoAdmin) {
+        estadoVista.textContent = 'Mostrando todas las reuniones (modo administrador).';
+      } else {
+        estadoVista.textContent = 'Mostrando solo las reuniones creadas en este dispositivo.';
+      }
+    }
+
+    function actualizarUIAdmin() {
+      if (modoAdmin) {
+        btnAdmin.textContent = 'Salir de modo administrador';
+        btnExcel.disabled = false;
+      } else {
+        btnAdmin.textContent = 'Activar modo administrador';
+        btnExcel.disabled = true;
+      }
+      actualizarEstadoVista();
+      pintarTabla();
+    }
+
+    function pintarTabla() {
+      const registros = obtenerRegistrosVisibles();
+      tbody.innerHTML = '';
+
+      registros.forEach((r, indexVisible) => {
+        const tr = document.createElement('tr');
+
+        // Para mapear indexVisible al índice real en el arreglo general:
+        const indiceReal = reuniones.indexOf(r);
+
+        let accionesHTML = '';
+        if (modoAdmin) {
+          accionesHTML = `
+            <button class="btn btn-secondary btn-sm" data-accion="editar" data-index="${indiceReal}">Editar</button>
+            <button class="btn btn-danger btn-sm" data-accion="eliminar" data-index="${indiceReal}">Eliminar</button>
+          `;
+        } else {
+          accionesHTML = '<span style="font-size:11px; color:#777;">Solo administrador</span>';
+        }
+
+        tr.innerHTML = `
+          <td>${indexVisible + 1}</td>
+          <td>${r.delegados || ''}</td>
+          <td>${r.fecha || ''}</td>
+          <td>${r.hora || ''}</td>
+          <td>${r.lugar || ''}</td>
+          <td>${r.municipio || ''}</td>
+          <td>${r.lider || ''}</td>
+          <td>${r.celular || ''}</td>
+          <td>${r.asistentes ?? ''}</td>
+          <td>${r.tipoPoblacion || ''}</td>
+          <td>${r.observaciones || ''}</td>
+          <td>${r.notas || ''}</td>
+          <td class="actions-cell">
+            ${accionesHTML}
+          </td>
+        `;
+
+        tbody.appendChild(tr);
+      });
+    }
+
+    function escapeCSV(value) {
+      if (value === null || value === undefined) return '';
+      const str = String(value).replace(/"/g, '""');
+      if (/[;"\n\r]/.test(str)) {
+        return `"${str}"`;
+      }
+      return str;
+    }
+
+    function descargarExcel() {
+      const registros = obtenerRegistrosVisibles();
+      if (!registros.length) {
+        alert('No hay registros para exportar.');
+        return;
+      }
+
+      const encabezados = [
+        'Delegados',
+        'Fecha',
+        'Hora',
+        'Lugar',
+        'Municipio',
+        'Líder u organización',
+        'Celular',
+        'Número de asistentes',
+        'Tipo de población',
+        'Observaciones',
+        'Notas pendientes'
+      ];
+
+      const filas = registros.map(r => [
+        r.delegados || '',
+        r.fecha || '',
+        r.hora || '',
+        r.lugar || '',
+        r.municipio || '',
+        r.lider || '',
+        r.celular || '',
+        r.asistentes ?? '',
+        r.tipoPoblacion || '',
+        r.observaciones || '',
+        r.notas || ''
+      ]);
+
+      const lineas = [];
+      lineas.push(encabezados.map(escapeCSV).join(';'));
+      filas.forEach(fila => {
+        lineas.push(fila.map(escapeCSV).join(';'));
+      });
+
+      const csvContent = lineas.join('\n');
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'reuniones_dra_teresa.csv';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    // ----- Eventos -----
+    btnGuardar.addEventListener('click', () => {
+      const datos = obtenerDatosFormulario();
+      const error = validarDatos(datos);
+
+      if (error) {
+        alert(error);
+        return;
+      }
+
+      if (indiceEdicion === null) {
+        // Crear nuevo
+        reuniones.push(datos);
+      } else {
+        // Actualizar existente (NO se cambia el dispositivoId)
+        datos.dispositivoId = reuniones[indiceEdicion].dispositivoId;
+        reuniones[indiceEdicion] = datos;
+      }
+
+      guardarEnLocalStorage();
+      pintarTabla();
+      limpiarFormulario();
+    });
+
+    btnLimpiar.addEventListener('click', () => {
+      limpiarFormulario();
+    });
+
+    filtroDelegado.addEventListener('input', () => {
+      pintarTabla();
+    });
+
+    btnAdmin.addEventListener('click', () => {
+      if (modoAdmin) {
+        // salir
+        modoAdmin = false;
+        actualizarUIAdmin();
+      } else {
+        const pwd = prompt('Ingrese la contraseña del modo administrador:');
+        if (pwd === null) return;
+        if (pwd === ADMIN_PASSWORD) {
+          modoAdmin = true;
+          actualizarUIAdmin();
+        } else {
+          alert('Contraseña incorrecta.');
+        }
+      }
+    });
+
+    btnExcel.addEventListener('click', () => {
+      if (!modoAdmin) {
+        alert('Solo el administrador puede descargar el Excel.');
+        return;
+      }
+      descargarExcel();
+    });
+
+    // Delegación de eventos para los botones de la tabla
+    tbody.addEventListener('click', (event) => {
+      const btn = event.target;
+      const accion = btn.getAttribute('data-accion');
+      const index = btn.getAttribute('data-index');
+
+      if (!accion || index === null) return;
+      if (!modoAdmin) {
+        alert('Solo el administrador puede editar o eliminar registros.');
+        return;
+      }
+
+      const indice = parseInt(index, 10);
+
+      if (accion === 'editar') {
+        const r = reuniones[indice];
+        inputDelegados.value = r.delegados || '';
+        inputFecha.value = r.fecha || '';
+        inputHora.value = r.hora || '';
+        inputLugar.value = r.lugar || '';
+        inputMunicipio.value = r.municipio || '';
+        inputLider.value = r.lider || '';
+        inputCelular.value = r.celular || '';
+        inputAsistentes.value = r.asistentes ?? '';
+        inputTipoPoblacion.value = r.tipoPoblacion || '';
+        inputObservaciones.value = r.observaciones || '';
+        inputNotas.value = r.notas || '';
+
+        indiceEdicion = indice;
+        btnGuardar.textContent = 'Actualizar reunión';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+
+      if (accion === 'eliminar') {
+        const confirmar = confirm('¿Deseas eliminar esta reunión?');
+        if (!confirmar) return;
+        reuniones.splice(indice, 1);
+        guardarEnLocalStorage();
+        pintarTabla();
+      }
+    });
+
+    // ----- Inicio -----
+    idDispositivo = obtenerIdDispositivo();
+    cargarDesdeLocalStorage();
+    actualizarUIAdmin(); // inicia en modo no admin
+  </script>
 </body>
 </html>

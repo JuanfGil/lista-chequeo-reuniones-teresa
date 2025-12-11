@@ -483,10 +483,13 @@
   </div>
 
   <script>
-    // ----- CONFIGURACIÓN -----
-    const STORAGE_KEY = 'reunionesTeresa';
+    // ----- CONFIGURACIÓN FRONTEND -----
     const DEVICE_KEY = 'idDispositivoTeresa';
     const ADMIN_PASSWORD = 'teresa2025';
+
+    // 👇 CAMBIA esto por la URL de tu servicio en Render
+    // Ejemplo: 'https://lista-chequeo-api-teresa.onrender.com'
+    const API_BASE_URL = 'https://lista-chequeo-reuniones-teresa.onrender.com';
 
     let reuniones = [];
     let indiceEdicion = null; // null = creando, número = editando
@@ -534,20 +537,31 @@
       return id;
     }
 
-    function cargarDesdeLocalStorage() {
-      const data = localStorage.getItem(STORAGE_KEY);
-      if (data) {
-        try {
-          reuniones = JSON.parse(data);
-        } catch (e) {
-          reuniones = [];
-        }
-      }
-      pintarTabla();
+    function obtenerDatosFormulario() {
+      return {
+        delegados: inputDelegados.value.trim(),
+        fecha: inputFecha.value,
+        hora: inputHora.value,
+        lugar: inputLugar.value.trim(),
+        municipio: inputMunicipio.value.trim(),
+        lider: inputLider.value.trim(),
+        celular: inputCelular.value.trim(),
+        asistentes: inputAsistentes.value ? parseInt(inputAsistentes.value, 10) : null,
+        tipoPoblacion: inputTipoPoblacion.value.trim(),
+        observaciones: inputObservaciones.value.trim(),
+        notas: inputNotas.value.trim(),
+        dispositivoId: idDispositivo
+      };
     }
 
-    function guardarEnLocalStorage() {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(reuniones));
+    function validarDatos(datos) {
+      if (!datos.delegados) return 'El campo "Delegados" es obligatorio.';
+      if (!datos.fecha) return 'El campo "Fecha" es obligatorio.';
+      if (!datos.hora) return 'El campo "Hora" es obligatorio.';
+      if (!datos.lugar) return 'El campo "Lugar" es obligatorio.';
+      if (!datos.municipio) return 'El campo "Municipio" es obligatorio.';
+      if (!datos.lider) return 'El campo "Líder u organización que convoca" es obligatorio.';
+      return null;
     }
 
     function limpiarFormulario() {
@@ -566,40 +580,17 @@
       btnGuardar.textContent = 'Guardar reunión';
     }
 
-    function obtenerDatosFormulario() {
-      return {
-        delegados: inputDelegados.value.trim(),
-        fecha: inputFecha.value,
-        hora: inputHora.value,
-        lugar: inputLugar.value.trim(),
-        municipio: inputMunicipio.value.trim(),
-        lider: inputLider.value.trim(),
-        celular: inputCelular.value.trim(),
-        asistentes: inputAsistentes.value ? parseInt(inputAsistentes.value, 10) : '',
-        tipoPoblacion: inputTipoPoblacion.value.trim(),
-        observaciones: inputObservaciones.value.trim(),
-        notas: inputNotas.value.trim(),
-        dispositivoId: idDispositivo // quién lo creó
-      };
+    function actualizarEstadoVista() {
+      if (modoAdmin) {
+        estadoVista.textContent = 'Mostrando todas las reuniones (modo administrador).';
+      } else {
+        estadoVista.textContent = 'Mostrando solo las reuniones creadas en este dispositivo.';
+      }
     }
 
-    function validarDatos(datos) {
-      if (!datos.delegados) return 'El campo "Delegados" es obligatorio.';
-      if (!datos.fecha) return 'El campo "Fecha" es obligatorio.';
-      if (!datos.hora) return 'El campo "Hora" es obligatorio.';
-      if (!datos.lugar) return 'El campo "Lugar" es obligatorio.';
-      if (!datos.municipio) return 'El campo "Municipio" es obligatorio.';
-      if (!datos.lider) return 'El campo "Líder u organización que convoca" es obligatorio.';
-      return null;
-    }
-
-    function obtenerRegistrosVisibles() {
+    function obtenerRegistrosFiltrados() {
       const textoFiltro = filtroDelegado.value.toLowerCase().trim();
-
-      let base = reuniones.filter(r => {
-        if (modoAdmin) return true;
-        return r.dispositivoId === idDispositivo;
-      });
+      let base = [...reuniones];
 
       if (textoFiltro) {
         base = base.filter(r =>
@@ -610,46 +601,25 @@
       return base;
     }
 
-    function actualizarEstadoVista() {
-      if (modoAdmin) {
-        estadoVista.textContent = 'Mostrando todas las reuniones (modo administrador).';
-      } else {
-        estadoVista.textContent = 'Mostrando solo las reuniones creadas en este dispositivo.';
-      }
-    }
-
-    function actualizarUIAdmin() {
-      if (modoAdmin) {
-        btnAdmin.textContent = 'Salir de modo administrador';
-        btnExcel.disabled = false;
-      } else {
-        btnAdmin.textContent = 'Activar modo administrador';
-        btnExcel.disabled = true;
-      }
-      actualizarEstadoVista();
-      pintarTabla();
-    }
-
     function pintarTabla() {
-      const registros = obtenerRegistrosVisibles();
+      const registros = obtenerRegistrosFiltrados();
       tbody.innerHTML = '';
 
-      registros.forEach((r) => {
+      registros.forEach((r, index) => {
         const tr = document.createElement('tr');
-        const indiceReal = reuniones.indexOf(r);
 
         let accionesHTML = '';
         if (modoAdmin) {
           accionesHTML = `
-            <button class="btn btn-secondary btn-sm" data-accion="editar" data-index="${indiceReal}">Editar</button>
-            <button class="btn btn-danger btn-sm" data-accion="eliminar" data-index="${indiceReal}">Eliminar</button>
+            <button class="btn btn-secondary btn-sm" data-accion="editar" data-index="${index}">Editar</button>
+            <button class="btn btn-danger btn-sm" data-accion="eliminar" data-index="${index}">Eliminar</button>
           `;
         } else {
           accionesHTML = '<span style="font-size:11px; color:#777;">Solo administrador</span>';
         }
 
         tr.innerHTML = `
-          <td>${indiceReal + 1}</td>
+          <td>${index + 1}</td>
           <td>${r.delegados || ''}</td>
           <td>${r.fecha || ''}</td>
           <td>${r.hora || ''}</td>
@@ -658,7 +628,7 @@
           <td>${r.lider || ''}</td>
           <td>${r.celular || ''}</td>
           <td>${r.asistentes ?? ''}</td>
-          <td>${r.tipoPoblacion || ''}</td>
+          <td>${r.tipo_poblacion || r.tipoPoblacion || ''}</td>
           <td>${r.observaciones || ''}</td>
           <td>${r.notas || ''}</td>
           <td class="actions-cell">
@@ -680,7 +650,7 @@
     }
 
     function descargarExcel() {
-      const registros = obtenerRegistrosVisibles();
+      const registros = obtenerRegistrosFiltrados();
       if (!registros.length) {
         alert('No hay registros para exportar.');
         return;
@@ -709,7 +679,7 @@
         r.lider || '',
         r.celular || '',
         r.asistentes ?? '',
-        r.tipoPoblacion || '',
+        r.tipo_poblacion || r.tipoPoblacion || '',
         r.observaciones || '',
         r.notas || ''
       ]);
@@ -733,6 +703,57 @@
       URL.revokeObjectURL(url);
     }
 
+    // ----- Llamadas a la API -----
+    async function cargarReunionesDesdeApi() {
+      try {
+        let url = `${API_BASE_URL}/api/reuniones`;
+        if (modoAdmin) {
+          url += `?modo=admin&password=${encodeURIComponent(ADMIN_PASSWORD)}`;
+        } else {
+          url += `?dispositivoId=${encodeURIComponent(idDispositivo)}`;
+        }
+
+        const res = await fetch(url);
+        if (!res.ok) {
+          throw new Error('Error al consultar reuniones');
+        }
+
+        reuniones = await res.json();
+        pintarTabla();
+      } catch (err) {
+        console.error(err);
+        alert('No se pudieron cargar las reuniones desde el servidor.');
+      }
+    }
+
+    async function crearReunion(datos) {
+      const res = await fetch(`${API_BASE_URL}/api/reuniones`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(datos)
+      });
+      if (!res.ok) throw new Error('Error al crear reunión');
+      return res.json();
+    }
+
+    async function actualizarReunion(id, datos) {
+      const res = await fetch(`${API_BASE_URL}/api/reuniones/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(datos)
+      });
+      if (!res.ok) throw new Error('Error al actualizar reunión');
+      return res.json();
+    }
+
+    async function eliminarReunion(id) {
+      const res = await fetch(`${API_BASE_URL}/api/reuniones/${id}`, {
+        method: 'DELETE'
+      });
+      if (!res.ok) throw new Error('Error al eliminar reunión');
+      return res.json();
+    }
+
     // ----- Modal admin -----
     function abrirModalAdmin() {
       inputAdminPwd.value = '';
@@ -744,12 +765,15 @@
       modalAdmin.style.display = 'none';
     }
 
-    function intentarEntrarAdmin() {
+    async function intentarEntrarAdmin() {
       const pwd = inputAdminPwd.value;
       if (pwd === ADMIN_PASSWORD) {
         modoAdmin = true;
         cerrarModalAdmin();
-        actualizarUIAdmin();
+        actualizarEstadoVista();
+        await cargarReunionesDesdeApi();
+        btnAdmin.textContent = 'Salir de modo administrador';
+        btnExcel.disabled = false;
       } else {
         alert('Contraseña incorrecta.');
         inputAdminPwd.focus();
@@ -757,7 +781,7 @@
     }
 
     // ----- Eventos -----
-    btnGuardar.addEventListener('click', () => {
+    btnGuardar.addEventListener('click', async () => {
       const datos = obtenerDatosFormulario();
       const error = validarDatos(datos);
 
@@ -766,16 +790,20 @@
         return;
       }
 
-      if (indiceEdicion === null) {
-        reuniones.push(datos);
-      } else {
-        datos.dispositivoId = reuniones[indiceEdicion].dispositivoId;
-        reuniones[indiceEdicion] = datos;
-      }
+      try {
+        if (indiceEdicion === null) {
+          await crearReunion(datos);
+        } else {
+          const registro = reuniones[indiceEdicion];
+          await actualizarReunion(registro.id, datos);
+        }
 
-      guardarEnLocalStorage();
-      pintarTabla();
-      limpiarFormulario();
+        await cargarReunionesDesdeApi();
+        limpiarFormulario();
+      } catch (err) {
+        console.error(err);
+        alert('Ocurrió un error guardando la reunión.');
+      }
     });
 
     btnLimpiar.addEventListener('click', () => {
@@ -786,10 +814,13 @@
       pintarTabla();
     });
 
-    btnAdmin.addEventListener('click', () => {
+    btnAdmin.addEventListener('click', async () => {
       if (modoAdmin) {
         modoAdmin = false;
-        actualizarUIAdmin();
+        btnAdmin.textContent = 'Activar modo administrador';
+        btnExcel.disabled = true;
+        actualizarEstadoVista();
+        await cargarReunionesDesdeApi();
       } else {
         abrirModalAdmin();
       }
@@ -803,21 +834,21 @@
       descargarExcel();
     });
 
-    tbody.addEventListener('click', (event) => {
+    tbody.addEventListener('click', async (event) => {
       const btn = event.target;
       const accion = btn.getAttribute('data-accion');
       const index = btn.getAttribute('data-index');
 
       if (!accion || index === null) return;
+      const idx = parseInt(index, 10);
+
       if (!modoAdmin) {
         alert('Solo el administrador puede editar o eliminar registros.');
         return;
       }
 
-      const indice = parseInt(index, 10);
-
       if (accion === 'editar') {
-        const r = reuniones[indice];
+        const r = reuniones[idx];
         inputDelegados.value = r.delegados || '';
         inputFecha.value = r.fecha || '';
         inputHora.value = r.hora || '';
@@ -826,11 +857,11 @@
         inputLider.value = r.lider || '';
         inputCelular.value = r.celular || '';
         inputAsistentes.value = r.asistentes ?? '';
-        inputTipoPoblacion.value = r.tipoPoblacion || '';
+        inputTipoPoblacion.value = r.tipo_poblacion || r.tipoPoblacion || '';
         inputObservaciones.value = r.observaciones || '';
         inputNotas.value = r.notas || '';
 
-        indiceEdicion = indice;
+        indiceEdicion = idx;
         btnGuardar.textContent = 'Actualizar reunión';
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }
@@ -838,9 +869,15 @@
       if (accion === 'eliminar') {
         const confirmar = confirm('¿Deseas eliminar esta reunión?');
         if (!confirmar) return;
-        reuniones.splice(indice, 1);
-        guardarEnLocalStorage();
-        pintarTabla();
+
+        try {
+          const r = reuniones[idx];
+          await eliminarReunion(r.id);
+          await cargarReunionesDesdeApi();
+        } catch (err) {
+          console.error(err);
+          alert('No se pudo eliminar la reunión.');
+        }
       }
     });
 
@@ -866,9 +903,12 @@
     });
 
     // ----- Inicio -----
-    idDispositivo = obtenerIdDispositivo();
-    cargarDesdeLocalStorage();
-    actualizarUIAdmin(); // inicia en modo no admin
+    (async function init() {
+      idDispositivo = obtenerIdDispositivo();
+      actualizarEstadoVista();
+      await cargarReunionesDesdeApi();
+      btnExcel.disabled = true;
+    })();
   </script>
 </body>
 </html>

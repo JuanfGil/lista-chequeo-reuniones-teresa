@@ -19,59 +19,83 @@
     .app-container {
       max-width: 1200px;
       margin: 0 auto;
-      padding: 20px;
+      padding: 16px;
     }
 
     /* Encabezado */
     .header {
       display: flex;
       align-items: center;
-      gap: 16px;
-      margin-bottom: 20px;
+      gap: 12px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
     }
 
     .header-logo {
       width: 110px;
-      height: 70px;
-      border-radius: 4px;
-      background: #ddd;
+      height: 80px;
+      border-radius: 8px;
+      background: #f8bbd0; /* fucsia muy suave */
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 12px;
+      font-size: 11px;
       text-align: center;
       padding: 4px;
+      overflow: hidden;
+    }
+
+    .header-logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
 
     .header-title {
       flex: 1;
       padding: 10px 16px;
-      border-radius: 4px;
-      background: linear-gradient(to right, #ff9800, #ffeb3b); /* naranja → amarillo */
-      color: #000;
+      border-radius: 8px;
+      background: linear-gradient(to right, #e91e63, #ff80ab); /* fucsia → rosa */
+      color: #fff;
       font-weight: bold;
       text-transform: uppercase;
-      font-size: 15px;
+      font-size: 14px;
       text-align: center;
       line-height: 1.3;
     }
 
     .header-format {
       padding: 10px 16px;
-      border-radius: 4px;
-      background-color: #4caf50; /* verde */
+      border-radius: 8px;
+      background-color: #ad1457; /* fucsia oscuro */
       color: #fff;
       font-weight: bold;
       text-align: center;
-      min-width: 120px;
+      min-width: 110px;
       text-transform: uppercase;
+      font-size: 12px;
+    }
+
+    @media (max-width: 700px) {
+      .header {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .header-logo,
+      .header-title,
+      .header-format {
+        width: 100%;
+      }
+      .header-title {
+        font-size: 13px;
+      }
     }
 
     /* Layout principal */
     .content {
       display: grid;
-      grid-template-columns: 1fr 1.2fr;
-      gap: 20px;
+      grid-template-columns: 1fr 1.1fr;
+      gap: 16px;
     }
 
     @media (max-width: 900px) {
@@ -82,29 +106,30 @@
 
     /* Tarjetas */
     .card {
-      border-radius: 6px;
-      border: 1px solid #ddd;
-      padding: 16px;
+      border-radius: 8px;
+      border: 1px solid #f8bbd0;
+      padding: 14px;
       background-color: #ffffff;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      box-shadow: 0 2px 4px rgba(233, 30, 99, 0.08);
     }
 
     .card-title {
       margin-top: 0;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
       font-weight: bold;
-      font-size: 14px;
+      font-size: 13px;
       text-transform: uppercase;
       padding: 8px 10px;
-      border-radius: 4px;
-      background-color: #ffeb3b; /* amarillo */
+      border-radius: 6px;
+      background-color: #fce4ec; /* fucsia claro */
+      color: #880e4f;
     }
 
-    /* Formulario */
+    /* Formulario: todo en columna para móvil */
     .form-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px 16px;
+      grid-template-columns: 1fr;
+      gap: 10px;
     }
 
     .form-group {
@@ -114,14 +139,14 @@
     }
 
     .form-group label {
-      margin-bottom: 2px;
+      margin-bottom: 3px;
       font-weight: 600;
     }
 
     .form-group input,
     .form-group textarea {
-      padding: 6px 8px;
-      border-radius: 4px;
+      padding: 8px 10px;
+      border-radius: 6px;
       border: 1px solid #ccc;
       font-size: 13px;
     }
@@ -131,13 +156,9 @@
       min-height: 60px;
     }
 
-    .form-group-full {
-      grid-column: 1 / 3;
-    }
-
     /* Botones */
     .btn-row {
-      margin-top: 14px;
+      margin-top: 16px;
       display: flex;
       gap: 10px;
       flex-wrap: wrap;
@@ -145,31 +166,49 @@
 
     .btn {
       border: none;
-      border-radius: 4px;
-      padding: 8px 14px;
+      border-radius: 999px;
+      padding: 10px 18px;
       font-size: 13px;
       cursor: pointer;
       font-weight: 600;
+      min-width: 130px;
     }
 
     .btn-primary {
-      background-color: #ff9800; /* naranja */
+      background-color: #e91e63; /* fucsia */
       color: #fff;
     }
 
     .btn-secondary {
-      background-color: #4caf50; /* verde */
+      background-color: #f06292; /* fucsia medio */
       color: #fff;
     }
 
     .btn-danger {
-      background-color: #f44336;
+      background-color: #d32f2f;
       color: #fff;
+    }
+
+    .btn-sm {
+      padding: 6px 10px;
+      font-size: 12px;
+      min-width: auto;
+      border-radius: 16px;
     }
 
     .btn:disabled {
       opacity: 0.6;
       cursor: not-allowed;
+    }
+
+    @media (max-width: 700px) {
+      .btn-row {
+        flex-direction: column;
+      }
+      .btn {
+        width: 100%;
+        justify-content: center;
+      }
     }
 
     /* Tabla */
@@ -180,19 +219,19 @@
     }
 
     thead {
-      background-color: #4caf50; /* verde */
+      background-color: #ad1457; /* fucsia oscuro */
       color: #fff;
     }
 
     th, td {
-      border: 1px solid #ddd;
+      border: 1px solid #f8bbd0;
       padding: 6px;
       text-align: left;
       vertical-align: top;
     }
 
     tbody tr:nth-child(even) {
-      background-color: #fafafa;
+      background-color: #fce4ec;
     }
 
     .actions-cell {
@@ -213,14 +252,15 @@
       display: flex;
       flex-direction: column;
       font-size: 12px;
+      flex: 1;
+      min-width: 180px;
     }
 
     .filter-group input {
-      padding: 6px 8px;
-      border-radius: 4px;
+      padding: 8px 10px;
+      border-radius: 6px;
       border: 1px solid #ccc;
       font-size: 12px;
-      min-width: 220px;
     }
 
     .admin-controls {
@@ -229,10 +269,70 @@
       gap: 8px;
       flex-wrap: wrap;
       font-size: 11px;
+      justify-content: flex-end;
     }
 
     #estadoVista {
       font-style: italic;
+      color: #880e4f;
+    }
+
+    @media (max-width: 700px) {
+      .admin-controls {
+        justify-content: flex-start;
+      }
+    }
+
+    /* Modal administrador */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.4);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+
+    .modal {
+      background: #fff;
+      border-radius: 10px;
+      padding: 18px 16px;
+      max-width: 320px;
+      width: 90%;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+    }
+
+    .modal-title {
+      margin: 0 0 10px;
+      font-size: 14px;
+      font-weight: bold;
+      color: #880e4f;
+    }
+
+    .modal p {
+      margin: 0 0 10px;
+      font-size: 12px;
+    }
+
+    .modal input[type="password"] {
+      width: 100%;
+      padding: 8px 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 13px;
+      margin-bottom: 12px;
+    }
+
+    .modal-btns {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+
+    .link-mini {
+      font-size: 11px;
+      color: #e91e63;
     }
   </style>
 </head>
@@ -240,7 +340,9 @@
   <div class="app-container">
     <header class="header">
       <div class="header-logo">
-        Logo / Foto<br>Dra. Teresa
+        <!-- Reemplaza la imagen "teresa.jpg" por la foto real de la Dra. Teresa -->
+        <!-- Sube el archivo teresa.jpg al repositorio para que se vea aquí -->
+        <img src="teresa.jpg" alt="Dra. Teresa Enríquez Rosero" onerror="this.style.display='none'; this.parentElement.innerHTML='Foto<br>Dra. Teresa';">
       </div>
       <div class="header-title">
         Lista de Chequeo - Agendamiento Reuniones<br>
@@ -257,7 +359,7 @@
         <h2 class="card-title">Datos de la reunión</h2>
 
         <div class="form-grid">
-          <div class="form-group form-group-full">
+          <div class="form-group">
             <label for="delegados">Delegados</label>
             <input type="text" id="delegados" />
           </div>
@@ -272,7 +374,7 @@
             <input type="time" id="hora" />
           </div>
 
-          <div class="form-group form-group-full">
+          <div class="form-group">
             <label for="lugar">Lugar</label>
             <input type="text" id="lugar" />
           </div>
@@ -297,17 +399,17 @@
             <input type="number" id="asistentes" min="0" />
           </div>
 
-          <div class="form-group form-group-full">
+          <div class="form-group">
             <label for="tipoPoblacion">Tipo de población</label>
             <input type="text" id="tipoPoblacion" />
           </div>
 
-          <div class="form-group form-group-full">
+          <div class="form-group">
             <label for="observaciones">Observaciones</label>
             <textarea id="observaciones"></textarea>
           </div>
 
-          <div class="form-group form-group-full">
+          <div class="form-group">
             <label for="notas">Notas pendientes por parte de la Dra. Teresa Enríquez / Delegado</label>
             <textarea id="notas"></textarea>
           </div>
@@ -321,7 +423,7 @@
 
       <!-- TABLA -->
       <section class="card">
-        <h2 class="card-title" style="background-color:#ff9800; color:#fff;">
+        <h2 class="card-title" style="background-color:#e91e63; color:#fff;">
           Listado de reuniones agendadas
         </h2>
 
@@ -332,8 +434,8 @@
           </div>
 
           <div class="admin-controls">
-            <button class="btn btn-secondary" id="btnAdmin">Activar modo administrador</button>
-            <button class="btn btn-primary" id="btnExcel" disabled>Descargar Excel</button>
+            <button class="btn btn-secondary btn-sm" id="btnAdmin">Activar modo administrador</button>
+            <button class="btn btn-primary btn-sm" id="btnExcel" disabled>Descargar Excel</button>
             <span id="estadoVista"></span>
           </div>
         </div>
@@ -364,11 +466,24 @@
     </div>
   </div>
 
+  <!-- MODAL ADMIN -->
+  <div class="modal-backdrop" id="modalAdmin">
+    <div class="modal">
+      <h3 class="modal-title">Modo administrador</h3>
+      <p>Ingresa la contraseña para ver todas las reuniones y habilitar edición/eliminación.</p>
+      <input type="password" id="inputAdminPwd" placeholder="Contraseña" />
+      <div class="modal-btns">
+        <button class="btn btn-secondary btn-sm" id="btnCancelarAdmin">Cancelar</button>
+        <button class="btn btn-primary btn-sm" id="btnConfirmarAdmin">Aceptar</button>
+      </div>
+    </div>
+  </div>
+
   <script>
     // ----- CONFIGURACIÓN -----
     const STORAGE_KEY = 'reunionesTeresa';
     const DEVICE_KEY = 'idDispositivoTeresa';
-    const ADMIN_PASSWORD = 'Teresa2025'; // puedes cambiarla si quieres
+    const ADMIN_PASSWORD = 'teresa2025'; // contraseña en minúsculas
 
     let reuniones = [];
     let indiceEdicion = null; // null = creando, número = editando
@@ -396,6 +511,11 @@
     const btnAdmin = document.getElementById('btnAdmin');
     const btnExcel = document.getElementById('btnExcel');
     const estadoVista = document.getElementById('estadoVista');
+
+    const modalAdmin = document.getElementById('modalAdmin');
+    const inputAdminPwd = document.getElementById('inputAdminPwd');
+    const btnCancelarAdmin = document.getElementById('btnCancelarAdmin');
+    const btnConfirmarAdmin = document.getElementById('btnConfirmarAdmin');
 
     // ----- Funciones generales -----
     function generarIdDispositivo() {
@@ -456,7 +576,7 @@
         tipoPoblacion: inputTipoPoblacion.value.trim(),
         observaciones: inputObservaciones.value.trim(),
         notas: inputNotas.value.trim(),
-        dispositivoId: idDispositivo // siempre guarda quién lo creó
+        dispositivoId: idDispositivo // quién lo creó
       };
     }
 
@@ -475,7 +595,6 @@
 
       let base = reuniones.filter(r => {
         if (modoAdmin) return true;
-        // NO admin: solo registros de este dispositivo
         return r.dispositivoId === idDispositivo;
       });
 
@@ -512,10 +631,8 @@
       const registros = obtenerRegistrosVisibles();
       tbody.innerHTML = '';
 
-      registros.forEach((r, indexVisible) => {
+      registros.forEach((r) => {
         const tr = document.createElement('tr');
-
-        // Para mapear indexVisible al índice real en el arreglo general:
         const indiceReal = reuniones.indexOf(r);
 
         let accionesHTML = '';
@@ -529,7 +646,7 @@
         }
 
         tr.innerHTML = `
-          <td>${indexVisible + 1}</td>
+          <td>${indiceReal + 1}</td>
           <td>${r.delegados || ''}</td>
           <td>${r.fecha || ''}</td>
           <td>${r.hora || ''}</td>
@@ -613,6 +730,29 @@
       URL.revokeObjectURL(url);
     }
 
+    // ----- Modal admin -----
+    function abrirModalAdmin() {
+      inputAdminPwd.value = '';
+      modalAdmin.style.display = 'flex';
+      setTimeout(() => inputAdminPwd.focus(), 50);
+    }
+
+    function cerrarModalAdmin() {
+      modalAdmin.style.display = 'none';
+    }
+
+    function intentarEntrarAdmin() {
+      const pwd = inputAdminPwd.value;
+      if (pwd === ADMIN_PASSWORD) {
+        modoAdmin = true;
+        cerrarModalAdmin();
+        actualizarUIAdmin();
+      } else {
+        alert('Contraseña incorrecta.');
+        inputAdminPwd.focus();
+      }
+    }
+
     // ----- Eventos -----
     btnGuardar.addEventListener('click', () => {
       const datos = obtenerDatosFormulario();
@@ -624,10 +764,8 @@
       }
 
       if (indiceEdicion === null) {
-        // Crear nuevo
         reuniones.push(datos);
       } else {
-        // Actualizar existente (NO se cambia el dispositivoId)
         datos.dispositivoId = reuniones[indiceEdicion].dispositivoId;
         reuniones[indiceEdicion] = datos;
       }
@@ -647,18 +785,10 @@
 
     btnAdmin.addEventListener('click', () => {
       if (modoAdmin) {
-        // salir
         modoAdmin = false;
         actualizarUIAdmin();
       } else {
-        const pwd = prompt('Ingrese la contraseña del modo administrador:');
-        if (pwd === null) return;
-        if (pwd === ADMIN_PASSWORD) {
-          modoAdmin = true;
-          actualizarUIAdmin();
-        } else {
-          alert('Contraseña incorrecta.');
-        }
+        abrirModalAdmin();
       }
     });
 
@@ -670,7 +800,6 @@
       descargarExcel();
     });
 
-    // Delegación de eventos para los botones de la tabla
     tbody.addEventListener('click', (event) => {
       const btn = event.target;
       const accion = btn.getAttribute('data-accion');
@@ -709,6 +838,27 @@
         reuniones.splice(indice, 1);
         guardarEnLocalStorage();
         pintarTabla();
+      }
+    });
+
+    // Modal eventos
+    btnCancelarAdmin.addEventListener('click', () => {
+      cerrarModalAdmin();
+    });
+
+    btnConfirmarAdmin.addEventListener('click', () => {
+      intentarEntrarAdmin();
+    });
+
+    inputAdminPwd.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        intentarEntrarAdmin();
+      }
+    });
+
+    modalAdmin.addEventListener('click', (e) => {
+      if (e.target === modalAdmin) {
+        cerrarModalAdmin();
       }
     });
 

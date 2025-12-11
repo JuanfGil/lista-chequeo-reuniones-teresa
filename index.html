@@ -32,9 +32,9 @@
     }
 
     .header-logo {
-      width: 110px;
-      height: 80px;
-      border-radius: 8px;
+      width: 150px;
+      height: 150px;
+      border-radius: 10px;
       background: #f8bbd0; /* fucsia muy suave */
       display: flex;
       align-items: center;
@@ -43,12 +43,13 @@
       text-align: center;
       padding: 4px;
       overflow: hidden;
+      box-shadow: 0 2px 6px rgba(233, 30, 99, 0.25);
     }
 
     .header-logo img {
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: cover; /* mantiene proporción y rellena el cuadro */
     }
 
     .header-title {
@@ -79,13 +80,20 @@
     @media (max-width: 700px) {
       .header {
         flex-direction: column;
-        align-items: stretch;
+        align-items: center;
       }
-      .header-logo,
+
+      .header-logo {
+        width: 200px;
+        height: 200px;
+        margin-bottom: 8px;
+      }
+
       .header-title,
       .header-format {
         width: 100%;
       }
+
       .header-title {
         font-size: 13px;
       }
@@ -329,20 +337,15 @@
       justify-content: flex-end;
       gap: 8px;
     }
-
-    .link-mini {
-      font-size: 11px;
-      color: #e91e63;
-    }
   </style>
 </head>
 <body>
   <div class="app-container">
     <header class="header">
       <div class="header-logo">
-        <!-- Reemplaza la imagen "teresa.jpg" por la foto real de la Dra. Teresa -->
-        <!-- Sube el archivo teresa.jpg al repositorio para que se vea aquí -->
-        <img src="teresaa.jpg" alt="Dra. Teresa Enríquez Rosero" onerror="this.style.display='none'; this.parentElement.innerHTML='Foto<br>Dra. Teresa';">
+        <!-- Foto Dra. Teresa -->
+        <img src="teresaaa.jpg" alt="Dra. Teresa Enríquez Rosero"
+             onerror="this.style.display='none'; this.parentElement.innerHTML='Foto<br>Dra. Teresa';">
       </div>
       <div class="header-title">
         Lista de Chequeo - Agendamiento Reuniones<br>
@@ -483,7 +486,7 @@
     // ----- CONFIGURACIÓN -----
     const STORAGE_KEY = 'reunionesTeresa';
     const DEVICE_KEY = 'idDispositivoTeresa';
-    const ADMIN_PASSWORD = 'teresa2025'; // contraseña en minúsculas
+    const ADMIN_PASSWORD = 'teresa2025';
 
     let reuniones = [];
     let indiceEdicion = null; // null = creando, número = editando
